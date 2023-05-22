@@ -4,10 +4,11 @@ import { HubConnectionBuilder } from '@microsoft/signalr';
 const PageViews = () => {
     const [ connection, setConnection ] = useState(null);
     const [ pageViews, setPageViews ] = useState();
+    const [ pageCurrentConnections, setPageCurrentConnections ] = useState();
     
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:60059/hubs/userCount')
+            .withUrl(import.meta.env.VITE_USERS_HUB)
             .withAutomaticReconnect()
             .build();
 
@@ -30,20 +31,29 @@ const PageViews = () => {
     //start connection
     function fullfilled() {
         console.log("Connection to User Hub Successful");
-        connection.on("updatedTotalViews", (value) => {
+        connection.on("updateTotalViews", (value) => {
             setPageViews(value);
         });
         newWindowLoadedOnClient();
+        connection.on("updateTotalUsers", (value) => {
+            setPageCurrentConnections(value);
+        });
     }
     function rejected(e) {
         console.log("Error with connection to User Hub: " + e);
     }
 
     return (
-        <>
-            <div>PageViews</div>
-            <span id="totalViewsCounter">{pageViews}</span>
-        </>
+        <div>
+            <div>
+                <div>PageViews</div>
+                <span>{pageViews}</span>
+            </div>
+            <div>
+                <div>Current Connections</div>
+                <span>{pageCurrentConnections}</span>
+            </div>
+        </div>
     )
 }
 
