@@ -61,5 +61,6 @@ app.MapRazorPages();
 app.UseCors(corsPolicyName);
 
 app.MapHub<UserHub>("/hubs/userCount");
+app.MapHub<DeathlyHallowsHub>("/hubs/deathlyHallows");
 
 app.Run();

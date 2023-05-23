@@ -1,0 +1,27 @@
+.container {
+    border: 1px solid #ffffff;
+    padding: 2%;
+    min-width: 90%;
+}
+
+.sep {
+    width: 80%;
+    margin: auto;
+    margin-top: 3%;
+}
+
+.filterGreen {
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(100%) contrast(119%);
+}
+
+.voteSpan {
+    display: flex;
+    align-items: center;
+}
+
+.voteDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
