@@ -1,0 +1,11 @@
+.container {
+    border: 1px solid #ffffff;
+    padding: 2%;
+    min-width: 90%;
+}
+
+.sep {
+    width: 80%;
+    margin: auto;
+    margin-top: 3%;
+}

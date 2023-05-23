@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { HubConnectionBuilder } from '@microsoft/signalr';
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import styles from './PageViews.module.css';
 
 const PageViews = () => {
     const [ connection, setConnection ] = useState(null);
@@ -8,6 +9,7 @@ const PageViews = () => {
     
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
+            .configureLogging(LogLevel.Debug)
             .withUrl(import.meta.env.VITE_USERS_HUB)
             .withAutomaticReconnect()
             .build();
@@ -20,6 +22,12 @@ const PageViews = () => {
             connection.start()
                 .then(fullfilled, rejected)
                 .catch(e => console.log('Connection failed: ', e));
+            connection.on("updateTotalViews", (value) => {
+                setPageViews(value);
+            });
+            connection.on("updateTotalUsers", (value) => {
+                setPageCurrentConnections(value);
+            });
         }
     }, [connection]);
 
@@ -31,20 +39,14 @@ const PageViews = () => {
     //start connection
     function fullfilled() {
         console.log("Connection to User Hub Successful");
-        connection.on("updateTotalViews", (value) => {
-            setPageViews(value);
-        });
         newWindowLoadedOnClient();
-        connection.on("updateTotalUsers", (value) => {
-            setPageCurrentConnections(value);
-        });
     }
     function rejected(e) {
         console.log("Error with connection to User Hub: " + e);
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <div>
                 <div>PageViews</div>
                 <span>{pageViews}</span>

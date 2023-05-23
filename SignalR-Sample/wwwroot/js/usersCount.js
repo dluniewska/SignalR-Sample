@@ -1,5 +1,9 @@
 // create connection
-let connectionUserCount = new signalR.HubConnectionBuilder().withUrl("/hubs/userCount").build();
+let connectionUserCount = new signalR.HubConnectionBuilder()
+    .configureLogging(signalR.LogLevel.Debug)
+    .withUrl("/hubs/userCount")
+    .withAutomaticReconnect()
+    .build();
 
 //connect to methods that hub invokes aka receive notifications from hub
 connectionUserCount.on("updateTotalViews", (value) => {
