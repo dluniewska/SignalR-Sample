@@ -1,15 +1,17 @@
+//has to be outside dor second method to work
+let cloakSpan = document.getElementById("cloakCounter");
+let stoneSpan = document.getElementById("stoneCounter");
+let wandSpan = document.getElementById("wandCounter");
+
 // create connection
 let connectionDeathlyHallows = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Debug)
-    .withUrl("/hubs/deathlyhallows")
+    .withUrl("/hubs/deathlyHallows")
     .withAutomaticReconnect()
     .build();
 
 //connect to methods that hub invokes aka receive notifications from hub
 connectionDeathlyHallows.on("updateDeathlyHallowsCount", (cloak, stone, wand) => {
-    let cloakSpan = document.getElementById("cloakCounter");
-    let stoneSpan = document.getElementById("stoneCounter");
-    let wandSpan = document.getElementById("wandCounter");
     cloakSpan.innerText = cloak.toString();
     stoneSpan.innerText = stone.toString();
     wandSpan.innerText = wand.toString();

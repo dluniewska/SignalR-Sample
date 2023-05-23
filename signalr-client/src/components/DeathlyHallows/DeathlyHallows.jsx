@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import axios from 'axios';
 import styles from './DeathlyHallows.module.css';
+import { ReactComponent as VotingChip } from '../../assets/voting_chip.svg';
 
 const DeathlyHallows = () => {
     const [ connection, setConnection ] = useState(null);
@@ -45,6 +47,9 @@ const DeathlyHallows = () => {
         console.log("Error with connection to User Hub: " + e);
     }
 
+    async function GetVote(param) {
+        await axios.get(`${import.meta.env.VITE_API_HOST}/Home/DeathlyHallows?type=${param}`);
+    }
 
   return (
     <div className={styles.container}>
@@ -59,10 +64,10 @@ const DeathlyHallows = () => {
             <div>Elder Wand - <span id="wandCounter">{wandCounter}</span></div>
         </div>
         <hr className={styles.sep}/>
-        <p>Url to Vote:</p>
-        <div>1. Invisibility Cloak - https://localhost:7001/Home/DeathlyHallows?type=cloak </div>
-        <div>2. Resurrection Stone - https://localhost:7001/Home/DeathlyHallows?type=stone </div>
-        <div>3. Elder Wand - https://localhost:7001/Home/DeathlyHallows?type=wand </div>
+        <p>Click to Vote:</p>
+        <div className={styles.voteDiv}><p>1. Invisibility Cloak -</p> <span className={styles.voteSpan} onClick={() => GetVote("cloak")}><VotingChip className={styles.filterGreen} /></span> </div>
+        <div className={styles.voteDiv}><p>2. Resurrection Stone -</p> <span className={styles.voteSpan} onClick={() => GetVote("stone")}><VotingChip className={styles.filterGreen} /></span> </div>
+        <div className={styles.voteDiv}><p>3. Elder Wand -</p> <span className={styles.voteSpan} onClick={() => GetVote("wand")}><VotingChip className={styles.filterGreen} /></span> </div>
     </div>
   )
 }
