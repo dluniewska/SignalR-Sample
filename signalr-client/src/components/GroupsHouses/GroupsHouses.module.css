@@ -1,0 +1,47 @@
+.container {
+    border: 1px solid #ffffff;
+    padding: 2%;
+    min-width: 90%;
+}
+
+.actionsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2%;
+}
+
+.sep {
+    width: 80%;
+    margin: auto;
+    margin-top: 3%;
+}
+
+.btnSlyth {
+    background-color: #B52033;
+    color: #ffffff;
+}
+
+.btnGryf {
+    background-color: #236E50;
+    color: #ffffff;
+}
+
+.btnHuff {
+    background-color: #EDB526;
+    color: #ffffff;
+}
+
+.btnRav {
+    background-color: #10749F;
+    color: #ffffff;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
