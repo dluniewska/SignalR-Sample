@@ -17,7 +17,7 @@ let trigger_ravenclaw = document.getElementById("trigger_ravenclaw");
 // create connection
 let connectionHouse = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Debug)
-    .withUrl("/hubs/houseGroupHub")
+    .withUrl("/hubs/houseGroup")
     .withAutomaticReconnect()
     .build();
 
